@@ -1,0 +1,49 @@
+# AWS Region Configuration
+aws_region         = "us-east-1"
+availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+
+# Project Configuration
+project_name = "chia-blockchain"
+environment  = "production"
+
+# Key pair name for SSH access (must already exist in AWS)
+key_pair_name = "your-key-pair-name"
+
+# Networking Configuration
+vpc_cidr             = "10.0.0.0/16"
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+private_subnet_cidrs = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+
+# Compute Configuration
+instance_type = "c5.xlarge"  # Recommended: c5.xlarge or larger
+# ami_id = ""  # Leave empty to use latest Ubuntu 22.04
+
+# Auto Scaling Configuration
+asg_min_size             = 2   # Minimum number of Chia nodes
+asg_max_size             = 10  # Maximum number of Chia nodes
+asg_desired_capacity     = 3   # Initial number of Chia nodes
+scale_out_cpu_threshold  = 70  # Scale out when CPU > 70%
+scale_in_cpu_threshold   = 30  # Scale in when CPU < 30%
+health_check_grace_period = 600 # 10 minutes for blockchain data copy
+
+# Chia Configuration
+chia_port        = 8444  # Chia fullnode port
+chia_rpc_port    = 8555  # Chia RPC port
+chia_farmer_port = 8447  # Chia farmer port
+
+# Storage Configuration
+efs_performance_mode  = "generalPurpose"  # Options: generalPurpose, maxIO
+efs_throughput_mode   = "bursting"        # Options: bursting, provisioned
+backup_retention_days = 30                # S3 backup retention
+
+# Monitoring Configuration
+enable_detailed_monitoring = true
+
+# Tags
+tags = {
+  Project     = "ChiaBlockchain"
+  ManagedBy   = "Terraform"
+  Environment = "Production"
+  Owner       = "YourTeam"
+  CostCenter  = "Engineering"
+}
